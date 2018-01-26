@@ -41,7 +41,7 @@ Whether or not to show the GitHub user's avatar in the messages.
 
     mattermost_github_config_server_hook: '/'
 
-The path where mattermost-github-integration will accept HTTP requests.
+The URL path at which mattermost-github-integration will accept HTTP requests.
 
     mattermost_github_config_server_address: '127.0.0.1'
 
@@ -70,7 +70,7 @@ Example Playbook
 - hosts: servers
   roles:
      - role: pieterlexis.mattermost-github
-       mattermost_github_config_server_hook: '/hooks/github',
+       mattermost_github_config_server_hook: '/hooks/github'
        mattermost_github_config_secret: 'eCWwdkxxue8F0Lkpcd7U9EASYyBLatOl'
        mattermost_github_config_mattermost_webhook_urls: |
          default: None,
@@ -79,6 +79,16 @@ Example Playbook
        mattermost_github_config_ignore_actions: |
          "issues": ["label", "assign"]
 ```
+
+Example nginx proxy configuration
+---------------------------------
+
+```
+location /hooks/github {
+   proxy_pass http://127.0.0.1:5000;
+}
+```
+
 
 License
 -------
